@@ -43,12 +43,14 @@ namespace GrepAdminBot
                     DefaultRunMode = RunMode.Async,     // Force all commands to run async
                     LogLevel = LogSeverity.Verbose
                 }))
+                .AddSingleton<Commands>()
                 .AddSingleton<Startup>()
                 .AddSingleton(_config);
 
             var provider = services.BuildServiceProvider();     // Create the service provider
 
             await provider.GetRequiredService<Startup>().StartAsync();
+            provider.GetRequiredService<Commands>();
 
             await Task.Delay(-1);     // Prevent the application from closing
         }
