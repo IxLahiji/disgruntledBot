@@ -37,4 +37,5 @@ namespace GrepAdminBot.Services
 
             await _commands.AddModulesAsync(Assembly.GetEntryAssembly());     // Load commands and modules into the command service
         }
+    }
 }
