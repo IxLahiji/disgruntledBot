@@ -5,6 +5,7 @@ using GrepAdminBot.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,11 @@ namespace GrepAdminBot
 
         public async Task StartAsync()
         {
+            if (!File.Exists("_config.json"))
+            {
+                //make empty json file
+            }
+
             var builder = new ConfigurationBuilder()    // Begin building the config file
                 .SetBasePath(AppContext.BaseDirectory)  // Specify the location of the config
                 .AddJsonFile("_config.json");           // Add the config file
