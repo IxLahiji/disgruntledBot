@@ -191,6 +191,7 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Logger.cs" />
     <Compile Include="Services\Startup.cs" />
   </ItemGroup>
   <ItemGroup>

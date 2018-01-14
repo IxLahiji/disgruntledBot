@@ -44,10 +44,12 @@ namespace GrepAdminBot
                     LogLevel = LogSeverity.Verbose
                 }))
                 .AddSingleton<Startup>()
+                .AddSingleton<Logger>()
                 .AddSingleton(_config);
 
             var provider = services.BuildServiceProvider();     // Create the service provider
 
+            provider.GetRequiredService<Logger>();
             await provider.GetRequiredService<Startup>().StartAsync();
 
             await Task.Delay(-1);     // Prevent the application from closing
