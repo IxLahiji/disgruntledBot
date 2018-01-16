@@ -63,7 +63,8 @@ namespace GrepAdminBot
                 .AddSingleton<Commands>()
                 .AddSingleton<Startup>()
                 .AddSingleton<Logger>()
-                .AddSingleton(_config);
+                .AddSingleton(_config)
+                .AddSingleton<Random>();
 
             var provider = services.BuildServiceProvider();     // Create the service provider
 
