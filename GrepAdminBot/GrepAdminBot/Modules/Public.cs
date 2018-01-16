@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace GrepAdminBot.Modules
 {
     [Name("Public")]
+    [Summary("Commands that can be invoked anywhere, by anyone.")]
     public class Public : ModuleBase<SocketCommandContext>
     {
         private readonly Random rand;
@@ -28,7 +29,7 @@ namespace GrepAdminBot.Modules
         [Summary("Flips multiple coins, based on a provided positive number, and provides the results in chat.")]
         public async Task Flip([Remainder]int numFlips)
         {
-            // Check to make sure number provided is greater than 1
+            // Check to make sure number provided is greater than 0
             if (numFlips > 0)
             {
                 await ReplyAsync($"{numFlips} coins flipped! Results is {MultCoins(numFlips)}.");
