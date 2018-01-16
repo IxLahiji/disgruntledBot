@@ -30,19 +30,13 @@ namespace GrepAdminBot
 
         public async Task StartAsync()
         {
+            Console.WriteLine();
             //Generate empty JSON configuration file if one does not exist
             if (!File.Exists(CONFIG_FILE))
             {
                 File.Create(CONFIG_FILE).Dispose();
 
-                ConfigurationSettings configSettings = new ConfigurationSettings
-                {
-                    prefix = "!",
-                    tokens = new Tokens
-                    {
-                    discord = null
-                    }
-                };
+                ConfigurationSettings configSettings = new ConfigurationSettings();
 
                 string jsonOutput = JsonConvert.SerializeObject(configSettings, Formatting.Indented);
                 File.WriteAllText(CONFIG_FILE, jsonOutput);
