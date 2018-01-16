@@ -1,15 +1,21 @@
 ﻿using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
+
 using GrepAdminBot.Services;
+using GrepAdminBot.Model.ConfigTemplates;
+
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
 using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
+using Newtonsoft.Json;
 
 namespace GrepAdminBot
 {
@@ -20,17 +26,28 @@ namespace GrepAdminBot
 
         private IConfigurationRoot _config;
 
+        private const String CONFIG_FILE = "config.json";
+
         public async Task StartAsync()
         {
-            if (!File.Exists("_config.json"))
+            Console.WriteLine();
+            //Generate empty JSON configuration file if one does not exist
+            if (!File.Exists(CONFIG_FILE))
             {
-                //make empty json file
+                File.Create(CONFIG_FILE).Dispose();
+
+                ConfigurationSettings configSettings = new ConfigurationSettings();
+
+                string jsonOutput = JsonConvert.SerializeObject(configSettings, Formatting.Indented);
+                File.WriteAllText(CONFIG_FILE, jsonOutput);
             }
 
-            var builder = new ConfigurationBuilder()    // Begin building the config file
-                .SetBasePath(AppContext.BaseDirectory)  // Specify the location of the config
-                .AddJsonFile("_config.json");           // Add the config file
-            _config = builder.Build();                  // Build the config file
+            //Read configuration data
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(AppContext.BaseDirectory)
+                .AddJsonFile(CONFIG_FILE, optional: true, reloadOnChange: true);
+            
+            _config = builder.Build();
 
             var services = new ServiceCollection()      // Begin building the service provider
                 .AddSingleton(new DiscordSocketClient(new DiscordSocketConfig     // Add the discord client to the service provider
