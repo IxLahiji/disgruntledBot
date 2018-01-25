@@ -67,7 +67,31 @@ namespace GrepAdminBot.Modules
             }
         }
 
-        [Command("gif")]
+        [Command("gif"), Priority(0)]
+        public async Task Gif()
+        {
+            string giphyToken = this.config["tokens:giphy"];     // Get the discord token from the config file
+            if (string.IsNullOrWhiteSpace(giphyToken))
+            {
+                await ReplyAsync("No Giphy app token provided. Please enter token into the `_config.json` file found in the applications root directory.");
+            }
+            else
+            {
+                Giphy giphy = new Giphy(giphyToken);
+
+                RandomParameter randomGif = new RandomParameter();
+
+                // Returns gif results
+                var gifResult = await giphy.RandomGif(randomGif);
+
+                var imageUrl = new EmbedBuilder()
+                    .WithImageUrl(gifResult.Data.ImageOriginalUrl).Build();
+
+                await ReplyAsync("", embed: imageUrl);
+            }
+        }
+
+        [Command("gif"), Priority(1)]
         [Summary("Posts a gif realted to the description provided.")]
         public async Task Gif([Remainder]string query)
         {
