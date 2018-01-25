@@ -5,6 +5,9 @@ using Discord.WebSocket;
 using System;
 using System.Threading.Tasks;
 
+using GiphyDotNet.Manager;
+using GiphyDotNet.Model.Parameters;
+
 namespace GrepAdminBot.Modules
 {
     [Name("Public")]
@@ -59,6 +62,26 @@ namespace GrepAdminBot.Modules
             {
                 return "TAILS";
             }
+        }
+
+        [Command("gif")]
+        [Summary("Posts a gif realted to the description provided.")]
+        public async Task Gif([Remainder]string query)
+        {
+            Giphy giphy = new Giphy("");
+
+            SearchParameter searchParameter = new SearchParameter()
+            {
+                Query = query
+            };
+
+            // Returns gif results
+            var gifResult = await giphy.GifSearch(searchParameter);
+
+            var imageUrl = new EmbedBuilder()
+                .WithImageUrl(gifResult.Data[0].Url).Build();
+
+            await ReplyAsync("", embed: imageUrl);
         }
     }
 }
