@@ -68,6 +68,7 @@ namespace GrepAdminBot.Modules
         }
 
         [Command("gif"), Priority(0)]
+        [Summary("Posts a random gif.")]
         public async Task Gif()
         {
             string giphyToken = this.config["tokens:giphy"];     // Get the discord token from the config file
