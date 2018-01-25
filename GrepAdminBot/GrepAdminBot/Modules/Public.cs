@@ -1,12 +1,13 @@
 ﻿using Discord;
 using Discord.Commands;
-using Discord.WebSocket;
 
 using System;
 using System.Threading.Tasks;
 
 using GiphyDotNet.Manager;
 using GiphyDotNet.Model.Parameters;
+
+using Microsoft.Extensions.Configuration;
 
 namespace GrepAdminBot.Modules
 {
@@ -15,10 +16,12 @@ namespace GrepAdminBot.Modules
     public class Public : ModuleBase<SocketCommandContext>
     {
         private readonly Random rand;
+        private readonly IConfigurationRoot config;
 
-        public Public(Random rand)
+        public Public(Random rand, IConfigurationRoot config)
         {
             this.rand = rand;
+            this.config = config;
         }
 
         [Command("flip"), Priority(0)]
@@ -68,20 +71,28 @@ namespace GrepAdminBot.Modules
         [Summary("Posts a gif realted to the description provided.")]
         public async Task Gif([Remainder]string query)
         {
-            Giphy giphy = new Giphy("");
-
-            SearchParameter searchParameter = new SearchParameter()
+            string giphyToken = this.config["tokens:giphy"];     // Get the discord token from the config file
+            if (string.IsNullOrWhiteSpace(giphyToken))
             {
-                Query = query
-            };
+                await ReplyAsync("No Giphy app token provided. Please enter token into the `_config.json` file found in the applications root directory.");
+            }
+            else
+            {
+                Giphy giphy = new Giphy(giphyToken);
 
-            // Returns gif results
-            var gifResult = await giphy.GifSearch(searchParameter);
+                SearchParameter searchParameter = new SearchParameter()
+                {
+                    Query = query
+                };
 
-            var imageUrl = new EmbedBuilder()
-                .WithImageUrl(gifResult.Data[0].Url).Build();
+                // Returns gif results
+                var gifResult = await giphy.GifSearch(searchParameter);
 
-            await ReplyAsync("", embed: imageUrl);
+                var imageUrl = new EmbedBuilder()
+                    .WithImageUrl(gifResult.Data[rand.Next() % gifResult.Data.Length].Images.Original.Url).Build();
+
+                await ReplyAsync("", embed: imageUrl);
+            }
         }
     }
 }
