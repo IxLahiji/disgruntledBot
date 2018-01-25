@@ -32,14 +32,14 @@ namespace GrepAdminBot.Services
         {
             var msg = s as SocketUserMessage;     // Ensure the message is from a user/bot
             if (msg == null) return;
-            if (msg.Author.Id == discord.CurrentUser.Id) return;     // Ignore self when checking commands
+            if (msg.Author.Id == this.discord.CurrentUser.Id) return;     // Ignore self when checking commands
 
-            var context = new SocketCommandContext(discord, msg);     // Create the command context
+            var context = new SocketCommandContext(this.discord, msg);     // Create the command context
 
             int argPos = 0;     // Check if the message has a valid command prefix
-            if (msg.HasStringPrefix(config["prefix"], ref argPos) || msg.HasMentionPrefix(discord.CurrentUser, ref argPos))
+            if (msg.HasStringPrefix(this.config["prefix"], ref argPos) || msg.HasMentionPrefix(this.discord.CurrentUser, ref argPos))
             {
-                var result = await commands.ExecuteAsync(context, argPos, provider);     // Execute the command
+                var result = await this.commands.ExecuteAsync(context, argPos, this.provider);     // Execute the command
 
                 if (!result.IsSuccess)     // If not successful, reply with the error.
                     await context.Channel.SendMessageAsync(result.ToString());

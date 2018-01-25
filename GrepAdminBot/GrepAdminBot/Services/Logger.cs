@@ -9,8 +9,8 @@ namespace GrepAdminBot.Services
 {
     class Logger
     {
-        private readonly DiscordSocketClient _discord;
-        private readonly CommandService _commands;
+        private readonly DiscordSocketClient discord;
+        private readonly CommandService commands;
 
         private string _logDirectory { get; }
         private string _logFile => Path.Combine(_logDirectory, $"{DateTime.UtcNow.ToString("yyyy-MM-dd")}.txt");
@@ -20,11 +20,11 @@ namespace GrepAdminBot.Services
         {
             _logDirectory = Path.Combine(AppContext.BaseDirectory, "logs");
 
-            _discord = discord;
-            _commands = commands;
+            this.discord = discord;
+            this.commands = commands;
 
-            _discord.Log += OnLogAsync;
-            _commands.Log += OnLogAsync;
+            this.discord.Log += OnLogAsync;
+            this.commands.Log += OnLogAsync;
         }
 
         private Task OnLogAsync(LogMessage msg)
