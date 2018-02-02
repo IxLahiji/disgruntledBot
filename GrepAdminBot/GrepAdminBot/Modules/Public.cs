@@ -1,9 +1,13 @@
 ﻿using Discord;
 using Discord.Commands;
-using Discord.WebSocket;
 
 using System;
 using System.Threading.Tasks;
+
+using GiphyDotNet.Manager;
+using GiphyDotNet.Model.Parameters;
+
+using Microsoft.Extensions.Configuration;
 
 namespace GrepAdminBot.Modules
 {
@@ -12,10 +16,12 @@ namespace GrepAdminBot.Modules
     public class Public : ModuleBase<SocketCommandContext>
     {
         private readonly Random rand;
+        private readonly IConfigurationRoot config;
 
-        public Public(Random rand)
+        public Public(Random rand, IConfigurationRoot config)
         {
             this.rand = rand;
+            this.config = config;
         }
 
         [Command("flip"), Priority(0)]
@@ -58,6 +64,66 @@ namespace GrepAdminBot.Modules
             else
             {
                 return "TAILS";
+            }
+        }
+
+        [Command("gif"), Priority(0)]
+        [Summary("Posts a random gif.")]
+        public async Task Gif()
+        {
+            string giphyToken = this.config["tokens:giphy"];     // Get the giphy token from the config file
+            if (string.IsNullOrWhiteSpace(giphyToken))
+            {
+                await ReplyAsync("No Giphy app token provided. Please enter token into the `config.json` file found in the applications root directory.");
+            }
+            else
+            {
+                Giphy giphy = new Giphy(giphyToken);
+
+                RandomParameter randomGif = new RandomParameter();
+
+                // Returns gif results
+                var gifResult = await giphy.RandomGif(randomGif);
+
+                var imageUrl = new EmbedBuilder()
+                    .WithImageUrl(gifResult.Data.ImageOriginalUrl).Build();
+
+                await ReplyAsync("", embed: imageUrl);
+            }
+        }
+
+        [Command("gif"), Priority(1)]
+        [Summary("Posts a gif realted to the description provided.")]
+        public async Task Gif([Remainder]string query)
+        {
+            string giphyToken = this.config["tokens:giphy"];     // Get the giphy token from the config file
+            if (string.IsNullOrWhiteSpace(giphyToken))
+            {
+                await ReplyAsync("No Giphy app token provided. Please enter token into the `config.json` file found in the applications root directory.");
+            }
+            else
+            {
+                Giphy giphy = new Giphy(giphyToken);
+
+                SearchParameter searchParameter = new SearchParameter()
+                {
+                    Query = query
+                };
+
+                // Returns gif results
+                var gifResult = await giphy.GifSearch(searchParameter);
+
+                if (gifResult.Data.Length > 0)
+                {
+                    var imageUrl = new EmbedBuilder()
+                    .WithImageUrl(gifResult.Data[rand.Next() % gifResult.Data.Length].Images.Original.Url).Build();
+
+                    await ReplyAsync("", embed: imageUrl);
+                }
+                else
+                {
+                    await ReplyAsync("[Error]: Tag provided returned no results!");
+                }
             }
         }
     }

@@ -11,9 +11,9 @@ namespace GrepAdminBot.Services
 {
     class Startup
     {
-        private readonly DiscordSocketClient _discord;
-        private readonly CommandService _commands;
-        private readonly IConfigurationRoot _config;
+        private readonly DiscordSocketClient discord;
+        private readonly CommandService commands;
+        private readonly IConfigurationRoot config;
 
         // DiscordSocketClient, CommandService, and IConfigurationRoot are injected automatically from the IServiceProvider
         public Startup(
@@ -21,21 +21,21 @@ namespace GrepAdminBot.Services
             CommandService commands,
             IConfigurationRoot config)
         {
-            _config = config;
-            _discord = discord;
-            _commands = commands;
+            this.config = config;
+            this.discord = discord;
+            this.commands = commands;
         }
 
         public async Task StartAsync()
         {
-            string discordToken = _config["tokens:discord"];     // Get the discord token from the config file
+            string discordToken = this.config["tokens:discord"];     // Get the discord token from the config file
             if (string.IsNullOrWhiteSpace(discordToken))
                 throw new Exception("Please enter your bot's token into the `_config.json` file found in the applications root directory.");
 
-            await _discord.LoginAsync(TokenType.Bot, discordToken);     // Login to discord
-            await _discord.StartAsync();                                // Connect to the websocket
+            await this.discord.LoginAsync(TokenType.Bot, discordToken);     // Login to discord
+            await this.discord.StartAsync();                                // Connect to the websocket
 
-            await _commands.AddModulesAsync(Assembly.GetEntryAssembly());     // Load commands and modules into the command service
+            await this.commands.AddModulesAsync(Assembly.GetEntryAssembly());     // Load commands and modules into the command service
         }
     }
 }
