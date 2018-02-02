@@ -71,10 +71,10 @@ namespace GrepAdminBot.Modules
         [Summary("Posts a random gif.")]
         public async Task Gif()
         {
-            string giphyToken = this.config["tokens:giphy"];     // Get the discord token from the config file
+            string giphyToken = this.config["tokens:giphy"];     // Get the giphy token from the config file
             if (string.IsNullOrWhiteSpace(giphyToken))
             {
-                await ReplyAsync("No Giphy app token provided. Please enter token into the `_config.json` file found in the applications root directory.");
+                await ReplyAsync("No Giphy app token provided. Please enter token into the `config.json` file found in the applications root directory.");
             }
             else
             {
@@ -96,10 +96,10 @@ namespace GrepAdminBot.Modules
         [Summary("Posts a gif realted to the description provided.")]
         public async Task Gif([Remainder]string query)
         {
-            string giphyToken = this.config["tokens:giphy"];     // Get the discord token from the config file
+            string giphyToken = this.config["tokens:giphy"];     // Get the giphy token from the config file
             if (string.IsNullOrWhiteSpace(giphyToken))
             {
-                await ReplyAsync("No Giphy app token provided. Please enter token into the `_config.json` file found in the applications root directory.");
+                await ReplyAsync("No Giphy app token provided. Please enter token into the `config.json` file found in the applications root directory.");
             }
             else
             {
