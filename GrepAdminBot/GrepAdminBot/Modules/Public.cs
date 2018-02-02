@@ -113,10 +113,17 @@ namespace GrepAdminBot.Modules
                 // Returns gif results
                 var gifResult = await giphy.GifSearch(searchParameter);
 
-                var imageUrl = new EmbedBuilder()
+                if (gifResult.Data.Length > 0)
+                {
+                    var imageUrl = new EmbedBuilder()
                     .WithImageUrl(gifResult.Data[rand.Next() % gifResult.Data.Length].Images.Original.Url).Build();
 
-                await ReplyAsync("", embed: imageUrl);
+                    await ReplyAsync("", embed: imageUrl);
+                }
+                else
+                {
+                    await ReplyAsync("[Error]: Tag provided returned no results!");
+                }
             }
         }
     }
