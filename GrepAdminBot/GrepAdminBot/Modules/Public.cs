@@ -38,7 +38,7 @@ namespace GrepAdminBot.Modules
             // Check to make sure number provided is greater than 0
             if (numFlips > 0)
             {
-                await ReplyAsync($"{numFlips} coins flipped! Results is {MultCoins(numFlips)}.");
+                await ReplyAsync($"{numFlips} coins flipped! Results are {MultCoins(numFlips)}.");
             }
             else
             {
@@ -125,6 +125,41 @@ namespace GrepAdminBot.Modules
                     await ReplyAsync("[Error]: Tag provided returned no results!");
                 }
             }
+        }
+
+        [Command("roll"), Priority(0)]
+        [Summary("Rolls a die and provides result in chat.")]
+        public async Task Roll()
+        {
+            await ReplyAsync($"Die rolled! Result is {Dice()}.");
+        }
+
+        [Command("roll"), Priority(1)]
+        [Summary("Rolls multiple dice, based on a provided positive number, and provides results in chat.")]
+        public async Task Roll([Remainder]int numRolls)
+        {
+            // Check to make sure number provided is greater than 0
+            if (numRolls > 0)
+            {
+                await ReplyAsync($"{numRolls} dice rolled! Results are {MultDice(numRolls)}.");
+            }
+            else
+            {
+                await ReplyAsync("Please use a number greater than 0.");
+            }
+        }
+
+        private string Dice()
+        {
+            return $"{rand.Next() % 6 + 1}";
+        }
+
+        private string MultDice(int n)
+        {
+            string results = Dice();
+
+            for (int i = 1; i < n; i++) results += $", {Dice()}";
+            return results;
         }
     }
 }
