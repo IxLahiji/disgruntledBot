@@ -3,7 +3,7 @@
 This project is a bot for Discord created using the Discord.Net discord API wrapper. This code is being developed in C#, using .NET 4.6 as the target framework.
 
 ## Code Style
-We are using PascalCase for the function and class definition names, and camelCase for variable names. For all other code styling, we will be using the following [guide](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/inside-a-program/coding-conventions) outlined by Microsoft
+We are using PascalCase for the function and class definition names, and camelCase for variable names. For all other code styling, we will be using the following [guide](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/inside-a-program/coding-conventions) outlined by Microsoft.
 
 ## Features
 -
