@@ -31,7 +31,8 @@ namespace GrepAdminBot
         public async Task StartAsync()
         {
             Console.WriteLine();
-            //Generate empty JSON configuration file if one does not exist
+
+            // Generate empty JSON configuration file if one does not exist.
             if (!File.Exists(CONFIG_FILE))
             {
                 File.Create(CONFIG_FILE).Dispose();
@@ -42,22 +43,26 @@ namespace GrepAdminBot
                 File.WriteAllText(CONFIG_FILE, jsonOutput);
             }
 
-            //Read configuration data
+            // Read configuration data.
             var builder = new ConfigurationBuilder()
                 .SetBasePath(AppContext.BaseDirectory)
                 .AddJsonFile(CONFIG_FILE, optional: true, reloadOnChange: true);
             
             _config = builder.Build();
 
-            var services = new ServiceCollection()      // Begin building the service provider
-                .AddSingleton(new DiscordSocketClient(new DiscordSocketConfig     // Add the discord client to the service provider
+            // Begin building the service provider with the following settings.
+            // Cache 1000 messages per channel.
+            // Force all commands to run async.
+            // Verbose logging for both Discord client and Command Service.
+            var services = new ServiceCollection()
+                .AddSingleton(new DiscordSocketClient(new DiscordSocketConfig
                 {
                     LogLevel = LogSeverity.Verbose,
-                    MessageCacheSize = 1000             // Tell Discord.Net to cache 1000 messages per channel
+                    MessageCacheSize = 1000
                 }))
-                .AddSingleton(new CommandService(new CommandServiceConfig     // Add the command service to the service provider
+                .AddSingleton(new CommandService(new CommandServiceConfig
                 {
-                    DefaultRunMode = RunMode.Async,     // Force all commands to run async
+                    DefaultRunMode = RunMode.Async,
                     LogLevel = LogSeverity.Verbose
                 }))
                 .AddSingleton<Commands>()
@@ -66,13 +71,14 @@ namespace GrepAdminBot
                 .AddSingleton(_config)
                 .AddSingleton<Random>();
 
-            var provider = services.BuildServiceProvider();     // Create the service provider
+            var provider = services.BuildServiceProvider();
 
             provider.GetRequiredService<Logger>();
             await provider.GetRequiredService<Startup>().StartAsync();
             provider.GetRequiredService<Commands>();
 
-            await Task.Delay(-1);     // Prevent the application from closing
+            // Prevent the application from closing.
+            await Task.Delay(-1);
         }
     }
 }

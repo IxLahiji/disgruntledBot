@@ -35,7 +35,7 @@ namespace GrepAdminBot.Modules
         [Summary("Flips multiple coins, based on a provided positive number, and provides the results in chat.")]
         public async Task Flip([Remainder]int numFlips)
         {
-            // Check to make sure number provided is greater than 0
+            // Check to make sure number provided is greater than 0.
             if (numFlips > 0)
             {
                 await ReplyAsync($"{numFlips} coins flipped! Results are {MultCoins(numFlips)}.");
@@ -48,9 +48,10 @@ namespace GrepAdminBot.Modules
 
         private string MultCoins(int n)
         {
-            // Put first coin result, this is allowed because n > 0
+            // Put first coin result, this is allowed because n > 0.
             string results = Coin();
-            // Loop for rest of tosses starts at 1, to account for initial toss
+
+            // Loop for rest of tosses starts at 1, to account for initial toss.
             for (int i = 1; i < n; i++) results += (", " + Coin());
             return results;
         }
@@ -71,7 +72,9 @@ namespace GrepAdminBot.Modules
         [Summary("Posts a random gif.")]
         public async Task Gif()
         {
-            string giphyToken = this.config["tokens:giphy"];     // Get the giphy token from the config file
+            // Get the giphy token from the config file.
+            string giphyToken = this.config["tokens:giphy"];
+
             if (string.IsNullOrWhiteSpace(giphyToken))
             {
                 await ReplyAsync("No Giphy app token provided. Please enter token into the `config.json` file found in the applications root directory.");
@@ -82,7 +85,7 @@ namespace GrepAdminBot.Modules
 
                 RandomParameter randomGif = new RandomParameter();
 
-                // Returns gif results
+                // Returns gif results.
                 var gifResult = await giphy.RandomGif(randomGif);
 
                 var imageUrl = new EmbedBuilder()
@@ -93,10 +96,12 @@ namespace GrepAdminBot.Modules
         }
 
         [Command("gif"), Priority(1)]
-        [Summary("Posts a gif realted to the description provided.")]
+        [Summary("Posts a gif related to the description provided.")]
         public async Task Gif([Remainder]string query)
         {
-            string giphyToken = this.config["tokens:giphy"];     // Get the giphy token from the config file
+            // Get the giphy token from the config file.
+            string giphyToken = this.config["tokens:giphy"];
+
             if (string.IsNullOrWhiteSpace(giphyToken))
             {
                 await ReplyAsync("No Giphy app token provided. Please enter token into the `config.json` file found in the applications root directory.");
@@ -110,7 +115,7 @@ namespace GrepAdminBot.Modules
                     Query = query
                 };
 
-                // Returns gif results
+                // Returns gif results.
                 var gifResult = await giphy.GifSearch(searchParameter);
 
                 if (gifResult.Data.Length > 0)
@@ -138,7 +143,7 @@ namespace GrepAdminBot.Modules
         [Summary("Rolls multiple dice, based on a provided positive number, and provides results in chat.")]
         public async Task Roll([Remainder]int numRolls)
         {
-            // Check to make sure number provided is greater than 0
+            // Check to make sure number provided is greater than 0.
             if (numRolls > 0)
             {
                 await ReplyAsync($"{numRolls} dice rolled! Results are {MultDice(numRolls)}.");
