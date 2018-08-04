@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GrepAdminBot.Model.ConfigTemplates
+namespace disgruntledBot.Model.ConfigTemplates
 {
     public class ConfigurationSettings
     {

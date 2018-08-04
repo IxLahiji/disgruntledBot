@@ -3,7 +3,7 @@ using Discord.Commands;
 using Discord.WebSocket;
 using System.Threading.Tasks;
 
-namespace GrepAdminBot.Modules
+namespace disgruntledBot.Modules
 {
     [Name("Moderator")]
     [RequireContext(ContextType.Guild)]

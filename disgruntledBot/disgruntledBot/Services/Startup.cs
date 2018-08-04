@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 
 
-namespace GrepAdminBot.Services
+namespace disgruntledBot.Services
 {
     class Startup
     {

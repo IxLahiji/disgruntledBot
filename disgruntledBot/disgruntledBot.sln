@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrepAdminBot", "GrepAdminBot\GrepAdminBot.csproj", "{CAAB258F-3BEB-4B36-8B7B-4917F90C9373}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "disgruntledBot", "disgruntledBot\disgruntledBot.csproj", "{CAAB258F-3BEB-4B36-8B7B-4917F90C9373}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

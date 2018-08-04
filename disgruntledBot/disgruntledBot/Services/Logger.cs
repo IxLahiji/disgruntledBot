@@ -5,7 +5,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace GrepAdminBot.Services
+namespace disgruntledBot.Services
 {
     class Logger
     {

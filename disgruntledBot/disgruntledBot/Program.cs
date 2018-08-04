@@ -2,8 +2,8 @@
 using Discord.Commands;
 using Discord.WebSocket;
 
-using GrepAdminBot.Services;
-using GrepAdminBot.Model.ConfigTemplates;
+using disgruntledBot.Services;
+using disgruntledBot.Model.ConfigTemplates;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 using Newtonsoft.Json;
 
-namespace GrepAdminBot
+namespace disgruntledBot
 {
     class Program
     {

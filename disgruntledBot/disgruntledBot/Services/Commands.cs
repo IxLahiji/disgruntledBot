@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks;
 using System;
 
-namespace GrepAdminBot.Services
+namespace disgruntledBot.Services
 {
     class Commands
     {

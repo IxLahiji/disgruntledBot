@@ -7,8 +7,8 @@
     <ProjectGuid>{CAAB258F-3BEB-4B36-8B7B-4917F90C9373}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GrepAdminBot</RootNamespace>
-    <AssemblyName>GrepAdminBot</AssemblyName>
+    <RootNamespace>disgruntledBot</RootNamespace>
+    <AssemblyName>disgruntledBot</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

@@ -9,7 +9,7 @@ using GiphyDotNet.Model.Parameters;
 
 using Microsoft.Extensions.Configuration;
 
-namespace GrepAdminBot.Modules
+namespace disgruntledBot.Modules
 {
     [Name("Public")]
     [Summary("Commands that can be invoked anywhere, by anyone.")]
