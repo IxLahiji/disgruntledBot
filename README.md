@@ -6,10 +6,19 @@ This project is a bot for Discord created using the Discord.Net discord API wrap
 We are using PascalCase for the function and class definition names, and camelCase for variable names. For all other code styling, we will be using the following [guide](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/inside-a-program/coding-conventions) outlined by Microsoft.
 
 ## Features
--
+- Dice roll
+- Coinflip
+- Gif posting
 
 ## To-Do
--
+- Announcements
+- Timed Announcements
+- Mute/gagging
+- Word blacklisting
+- Full chat logging
+- Help command
+- Text obfuscation command
+- Chat bot features
 
 ## Credits:
 
